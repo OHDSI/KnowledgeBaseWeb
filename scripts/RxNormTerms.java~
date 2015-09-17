@@ -1,0 +1,15 @@
+import java.sql.*;
+
+public static class RxNormTerms{
+
+    public static void main(String argv[]){
+	RxNormTerms rnt = new RxNormTerms();
+	rnt.go();
+    }
+
+    public void go(){
+	String [] termTypes = 
+	    {"BN","BPCK","DF","DFG","GPCK","IN","MIN","PIN","SBD","SBDC","SBDF","SBDG","SCD","SCDC","SCDF","SCDG"};
+    }
+
+}
