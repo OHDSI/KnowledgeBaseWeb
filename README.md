@@ -1,2 +1,0 @@
-# KnowledgeBaseWeb
-[in development]
