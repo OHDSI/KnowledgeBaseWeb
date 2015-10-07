@@ -1,0 +1,13 @@
+<?php
+
+use \Concept;
+
+class ConceptLookup extends Phalcon\Mvc\User\Component
+{
+
+  public function getName($concept_id){
+    $concept = Concept::findFirstByConceptId($concept_id);
+    return $concept.concept_name;
+  }
+
+}

@@ -1,0 +1,18 @@
+<?php
+
+import Concept;
+
+class FilterController extends ControllerBase
+{
+
+    public function drugsuggestionAction()
+    {
+				
+    }
+
+    public function evensuggestionAction()
+    {
+
+    }
+
+}

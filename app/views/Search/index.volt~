@@ -1,0 +1,25 @@
+{{ content() }}
+
+<div class="default-page">
+    <div class="header">
+        <h1 id="main-title" class="container">KnowledgeBaseWeb</h1>
+        <h3 class="container">A web front-end to <A HREF="https://github.com/OHDSI/KnowledgeBase">KnowledgeBase</A></h3>
+    </div>
+    <div class="main container clearfix">
+
+      <div class="searchoptions">
+	<h3>Results for {{ myconcept.concept_name}} (id: {{ myconcept.concept_id}}):</H3><BR><BR>
+
+	{% for result in results %}
+	Evidence type: {{result.evidenceType}}<BR>
+	Modality: {{result.modality}}<BR>
+	Linkout: <A HREF="{{result.linkout}}">{{result.linkout}}</A><BR>
+	Number of evidences: {{result.value}}<BR>
+	Condition name: {{result.conditionName}}<BR><BR>
+
+	{% endfor %}
+
+      </div>
+
+    </div>
+</div>
