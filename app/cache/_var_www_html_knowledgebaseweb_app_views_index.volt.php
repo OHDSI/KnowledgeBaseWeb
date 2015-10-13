@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <!-- moved scripts to top of html - ben -->
-<script src="/KnowledgeBaseWeb/public/js/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<link rel="stylesheet" href="/KnowledgeBaseWeb/public/css/kendo.common-material.min.css">
+<link rel="stylesheet" href="/KnowledgeBaseWeb/public/css/kendo.material.min.css">
+<link rel="stylesheet" href="/KnowledgeBaseWeb/public/css/kendo.material.mobile.min.css">
+<link rel="stylesheet" href="/KnowledgeBaseWeb/public/css/kendo.rtl.min.css">
+<link rel="stylesheet" href="/KnowledgeBaseWeb/public/css/KBW.css">
+<script src="/KnowledgeBaseWeb/public/js/jquery-1.11.3.min.js"></script>
+<script src="/KnowledgeBaseWeb/public/js/angular.min.js"></script>
+<script src="/KnowledgeBaseWeb/public/js/kendo.all.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <html>
