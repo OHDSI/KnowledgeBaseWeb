@@ -12,9 +12,10 @@
 
 	      <div id="radio" class="form-item">
 		<label class="allcapslabel" for="SearchType">Choose ingredient, product, or event</label>
+		<P id="SearchTypeError" class="error"></P>
 		<input type="radio" id="Ingredient" name="SearchType" value="Ingredient"><label for="Ingredient">Ingredient</label> 
-		<input type="radio" id="Product"    name="SearchType" value="Product"><label for="Product">Product</label>
-		<input type="radio" id="Event"      name="SearchType" value="Event"><label for="Event">Event</label>
+		<input type="radio" id="Clinical Drug"    name="SearchType" value="Clinical Drug"><label for="Clinical Drug">Clinical Drug</label>
+		<input type="radio" id="Health Outcome"      name="SearchType" value="Health Outcome"><label for="Health Outcome">Health Outcome</label>
 	      </div>
 
 	      <div id="searchcontent" class="form-item">
@@ -34,129 +35,107 @@
     </div>
 </div>
 <BR><BR>
-<h3>Results for {{myconcept.concept_name}} ({{myconcept.concept_id}})</h3>
- <div id="example" ng-app="KendoDemos">
-        <div class="demo-section k-content" ng-controller="MyCtrl">
-            <div kendo-tree-view="tree"
-                 k-data-source="treeData"
-                 ng-click="toggle($event)">
-            </div>
-        </div>
-    </div>
 
+<div class="searchresultscontainer">
 {% if ispost %}
+ <div class="searchresults">
+<h2>Results for {{myconcept.concept_name}} ({{myconcept.concept_id}})</h2>
 
 {% if results %}
- <div class="searchresults">
 
 
-	<script>
-	  angular.module("KendoDemos", [ "kendo.directives" ])
-		.controller("MyCtrl", function($scope){
-			$scope.treeData = new kendo.data.HierarchicalDataSource({ data: [
-	  
-	  {% for resultType in results %}
-	  {text: "{{resultType[0]['EVIDENCE']}}", items:[
-	  {% for result in resultType %}	  
-	  {
-		text:"{{lookup.getName(result['RESULT_CODE'])}} ({{result['RESULT_CODE']}})",items:[
-			{text:"Statistic Type: {{result['STATISTIC_TYPE']}}"},
-			{text:"Quantity: {{result['COUNT']}}"},
-			{text:"{{result['LINKOUT']}}", url:"{{result['LINKOUT']}}"}
-		],
-	  },
-	  {% endfor %}
-	  ]},
-	  {% endfor %}
-	  ]});
-	  
-	  $scope.toggle = function(e) {
-		var dataItem = this.tree.dataItem(e.target);
-		dataItem.set("expanded", !dataItem.expanded);
-		};
-	  })
-    </script>
-      </div>
+   <div class="tabs">
+
+   <ul class="tab-links">
+   {% set count=0 %}
+   {% for resultType in results %}
+   {% if count == 0 %}
+   <LI class="active"><A HREF="#tab-{{resultType[0]['EVIDENCE']}}">{{resultTypes[resultType[0]['EVIDENCE']]}}</A></LI>
+   {% else %}
+   <LI ><A HREF="#tab-{{resultType[0]['EVIDENCE']}}">{{resultTypes[resultType[0]['EVIDENCE']]}}</A></LI>
+   {% endif %}
+   {% set count = count+1 %}
+   {% endfor %}
+   </UL>
+
+   <div class="tab-content">
+
+   {% set count=0 %}
+   {% for resultType in results %}
+   <div id="tab-{{resultType[0]['EVIDENCE']}}" class="tab {%if count == 0%}active{% endif%}"><P>
+       <!-- begin table -->
+       <table width="100%">
+	 <thead>
+	   <TR>
+	     <TH style="max-width:500px">Evidence</TH>
+	     <TH>Statistic Type</TH>
+	     <TH>Quantity</TH>
+	     <TH>Linkout Information</TH>
+	   </TR>
+	 </thead>
+	 <tbody>
+	   {% for result in resultType %}
+	   <TR>
+	     <TD style="max-width:500px">{{lookup.getName(result['RESULT_CODE'])}} ({{result['RESULT_CODE']}})</TD>
+	     <TD>{{result['STATISTIC_TYPE']}}</TD>
+	     <TD>{{result['COUNT']}}</TD>
+	     {% if result['LINKOUT'] <> '' %}
+	     <TD><div id="{{result['LINKOUT']}}" class="linkout-result"><A TARGET="_blank"  HREF="{{result['LINKOUT']}}"><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px"></A></div></TD>
+	     {% else %}
+	     <TD><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px" style="opacity:0.2"></TD>
+	     {% endif %}
+
+	   </TR>
+	   {% endfor %}
+	 </tbody>
+
+       </table>
+       <!-- end table -->
+   </P></div>
+   {% set count = count + 1 %}
+   {% endfor %}
+   </div>
+
+   </div>
+</div>
 {% else %}
-No evidence for {{SearchType}} {{myconcept.concept_name}}
+<P class="error">No evidence for {{SearchType}} {{myconcept.concept_name}}</P>
 {% endif %}
 {% endif %}
+</div>
 
 <script type="text/javascript">
 $(function() {
 	$( "#radio" ).buttonset();
 	$( "#submit" ).button()
 	$( "#search-input" ).addClass("ui-corner-all");
+	jQuery('.tabs .tab-links a').on('click', function(e)  {
+	var currentAttrValue = jQuery(this).attr('href');
+
+	// Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
 });
 
-var st=$("input[name='SearchType']").val();
-$('#search-input').attr('placeholder',st);
-if(st == 'Product'){
-	$('input:radio[name="SearchType"]').filter('[value="Drug"]').attr('checked', true);
-	if($('#search-input').hasClass("ui-autocomplete-input")){
-	    $('#search-input').autocomplete("destroy");
+$("#search-input").keyup(function(){
+	var value = $("input[name='SearchType']:checked").val();
+	console.log(value);
+	if(typeof value == 'undefined'){
+		$("#SearchTypeError").text("Please select a search type first");
 	}
-	$('#search-input').autocomplete({
-	    source: function (request, response) {
-		$.getJSON("http://ec2-52-3-251-1.compute-1.amazonaws.com/KnowledgeBaseWeb/index/productsuggestion/" + request.term, function (data) {
-		    console.log(data);
-		    response($.map(data, function (item) {
-			return {
-			    label: item.concept_name,
-			    value: item.concept_id
-			};
-		    }));
-		});
-	    },
-	    minLength: 3,
-	    delay: 300
-	});
-    }else if (st == 'Event'){
-	$('input:radio[name="SearchType"]').filter('[value="Event"]').attr('checked', true);
-	if($('#search-input').hasClass("ui-autocomplete-input")){
-	    $('#search-input').autocomplete("destroy");
-	}
-	$('#search-input').autocomplete({
-	    source: function (request, response) {
-		$.getJSON("http://ec2-52-3-251-1.compute-1.amazonaws.com/KnowledgeBaseWeb/index/eventsuggestion/" + request.term, function (data) {
-		    console.log(data);
-		    response($.map(data, function (item) {
-			return {
-			    label: item.concept_name,
-			    value: item.concept_id
-			};
-		    }));
-		});
-	    },
-	    minLength: 3,
-	    delay: 300
-	});	
-    }else if (st == 'Ingredient'){
-	if($('#search-input').hasClass("ui-autocomplete-input")){
-	    $('#search-input').autocomplete("destroy");
-	}
-	$('#search-input').autocomplete({
-	    source: function (request, response) {
-		$.getJSON("http://ec2-52-3-251-1.compute-1.amazonaws.com/KnowledgeBaseWeb/index/ingredienttsuggestion/" + request.term, function (data) {
-		    console.log(data);
-		    response($.map(data, function (item) {
-			return {
-			    label: item.concept_name,
-			    value: item.concept_id
-			};
-		    }));
-		});
-	    },
-	    minLength: 3,
-	    delay: 300
-	});	
-    }
+});
 
 $("input[name='SearchType']").change(function(){
+    $("#SearchTypeError").text("");
     var placeholder=$(this).val();
     $('#search-input').attr('placeholder',placeholder);
 
-    if(placeholder == 'Product'){
+    if(placeholder == 'Clinical Drug'){
 	if($('#search-input').hasClass("ui-autocomplete-input")){
 	    $('#search-input').autocomplete("destroy");
 	}
@@ -175,7 +154,7 @@ $("input[name='SearchType']").change(function(){
 	    minLength: 3,
 	    delay: 300
 	});
-    }else if (placeholder == 'Event'){
+    }else if (placeholder == 'Health Outcome'){
 	if($('#search-input').hasClass("ui-autocomplete-input")){
 	    $('#search-input').autocomplete("destroy");
 	}
