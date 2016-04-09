@@ -96,3 +96,22 @@ li.active a, li.active a:hover {
     color: red;
     font-style: italic;
 }
+
+.submitImgClass { 
+background-image: url(/KnowledgeBaseWeb/public/img/JSON.png);
+background-position:  0px 0px;
+background-repeat: no-repeat;
+width: 32px;
+height: 32px;
+border: 0px;
+background-color: none;
+cursor: pointer;
+outline: 0;
+}
+.submitImgClass:hover{ 
+  background-position:  0px 0px;
+}
+
+.submitImgClass:active{
+  background-position:  0px 0px;
+}

@@ -76,11 +76,11 @@
 	 <tbody>
 	   <?php foreach ($resultType as $result) { ?>
 	   <TR>
-	     <TD style="max-width:500px"><?php echo $this->lookup->getName($result['RESULT_CODE']); ?> (<?php echo $result['RESULT_CODE']; ?>)</TD>
+	     <TD style="max-width:500px"><?php echo $result['RESULT_NAME']; ?> (<?php echo $result['RESULT_CODE']; ?>)</TD>
 	     <TD><?php echo $result['STATISTIC_TYPE']; ?></TD>
 	     <TD><?php echo $result['COUNT']; ?></TD>
 	     <?php if ($result['LINKOUT'] != '') { ?>
-	     <TD><div id="<?php echo $result['LINKOUT']; ?>" class="linkout-result"><A TARGET="_blank"  HREF="<?php echo $result['LINKOUT']; ?>"><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px"></A></div></TD>
+	     <TD><div id="<?php echo $result['LINKOUT']; ?>" class="linkout-result"><form action="/KnowledgeBaseWeb/Linkout" method="post" onsubmit="target_popup(this)"><input type="hidden" name="linkout_url" value="<?php echo $result['LINKOUT']; ?>"><input class="submitImgClass" type="submit" src="/KnowledgeBaseWeb/public/img/JSON.png" ><input type="hidden" name="linkout_type" value="<?php echo $result['EVIDENCE']; ?>"></form></div></TD>
 	     <?php } else { ?>
 	     <TD><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px" style="opacity:0.2"></TD>
 	     <?php } ?>
@@ -105,6 +105,12 @@
 </div>
 
 <script type="text/javascript">
+
+function target_popup(form){
+	window.open('','formpopup');
+	form.target = 'formpopup';
+}
+
 $(function() {
 	$( "#radio" ).buttonset();
 	$( "#submit" ).button()

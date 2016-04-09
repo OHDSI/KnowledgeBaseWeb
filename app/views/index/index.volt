@@ -76,11 +76,11 @@
 	 <tbody>
 	   {% for result in resultType %}
 	   <TR>
-	     <TD style="max-width:500px">{{lookup.getName(result['RESULT_CODE'])}} ({{result['RESULT_CODE']}})</TD>
+	     <TD style="max-width:500px">{{result['RESULT_NAME']}} ({{result['RESULT_CODE']}})</TD>
 	     <TD>{{result['STATISTIC_TYPE']}}</TD>
 	     <TD>{{result['COUNT']}}</TD>
 	     {% if result['LINKOUT'] <> '' %}
-	     <TD><div id="{{result['LINKOUT']}}" class="linkout-result"><A TARGET="_blank"  HREF="{{result['LINKOUT']}}"><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px"></A></div></TD>
+	     <TD><div id="{{result['LINKOUT']}}" class="linkout-result"><form action="/KnowledgeBaseWeb/Linkout" method="post" onsubmit="target_popup(this)"><input type="hidden" name="linkout_url" value="{{result['LINKOUT']}}"><input class="submitImgClass" type="submit" src="/KnowledgeBaseWeb/public/img/JSON.png" ><input type="hidden" name="linkout_type" value="{{result['EVIDENCE']}}"></form></div></TD>
 	     {% else %}
 	     <TD><img src="/KnowledgeBaseWeb/public/img/JSON.png" width="32px" height="32px" style="opacity:0.2"></TD>
 	     {% endif %}
@@ -105,6 +105,12 @@
 </div>
 
 <script type="text/javascript">
+
+function target_popup(form){
+	window.open('','formpopup');
+	form.target = 'formpopup';
+}
+
 $(function() {
 	$( "#radio" ).buttonset();
 	$( "#submit" ).button()

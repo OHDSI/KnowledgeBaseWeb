@@ -23,11 +23,13 @@ class IndexController extends ControllerBase
 	echo(json_encode($empty_arr));
       }else{
 	echo(json_encode($results));
-      }
+	}
     }
 
+
   public function productsuggestionAction($filtercondition)
-  {
+  {	
+
     $this->view->disable();
 
     $query = $this->modelsManager->createQuery("select distinct concept_id,concept_name from Concept a inner join DrugHoiRelationship on drug = concept_id where upper(concept_name) like :filter: and ".
@@ -74,12 +76,27 @@ class IndexController extends ControllerBase
 			   'MEDLINE_MeSH_ClinTrial'=>'MeSH CT',
 			   'MEDLINE_MeSH_CR'=>'MeSH CR',
 			   'MEDLINE_MeSH_Other'=>'MeSH Oth',
+			   'CTD_ChemicalDisease'=>'CTD',
+			   'aers_report_count'=>'FAERS Count',
+			   'aers_report_prr'=>'FAERS PRR',
+			   'MEDLINE_SemMedDB_CR'=>'SemMed CR',
+			   'MEDLINE_SemMedDB_ClinTrial'=>'SemMed CT',
+                            'MEDLINE_SemMedDB_Other'=>'SemMed Oth'
+			   );
+
+    /*
+    $evidence_type = array(
+			   'SPL_EU_SPC'=>'Splicer EU',
+			   'SPL_SPLICER_ADR'=>'Splicer',
+			   'MEDLINE_MeSH_ClinTrial'=>'MeSH CT',
+			   'MEDLINE_MeSH_CR'=>'MeSH CR',
+			   'MEDLINE_MeSH_Other'=>'MeSH Oth',
 			   'aers_report_count'=>'FAERS Count',
 			   'aers_report_prr'=>'FAERS PRR',
 			   'MEDLINE_SemMedDB_CR'=>'SemMed CR',
 			   'MEDLINE_SemMedDB_ClinTrial'=>'SemMed CT',
 			   'MEDLINE_SemMedDB_Other'=>'SemMed Oth'
-			   );
+			   );*/
 
     $this->view->ispost = false;
 
@@ -91,12 +108,33 @@ class IndexController extends ControllerBase
 
       $this->view->ispost = true;
 
-      $concept_id = $this->request->getPost("query","int");
+      $concept_id = $this->request->getPost("query","string");
       $searchtype = $this->request->getPost("SearchType","string");
       
       //echo("concept_id:".$concept_id);
       //echo("searchtype:".$searchtype);
-      
+
+      /*
+      if(!is_int($concept_id)){
+	if($searchtype == 'Ingredient'){
+	  $query = $this->modelsManager->createQuery("select distinct concept_id,concept_name from Concept a inner join DrugHoiRelationship on drug = concept_id where upper(concept_name) = :filter: and ".
+						     "concept_class_id = 'Ingredient' order by concept_name");
+
+	}else if ($searchtype == 'Clinical Drug'){
+	  $query = $this->modelsManager->createQuery("select distinct concept_id,concept_name from Concept a inner join DrugHoiRelationship on drug = concept_id where upper(concept_name) = :filter: and ".
+						     "concept_class_id = 'Clinical Drug' order by concept_name");
+	}else if ($searchtype == 'Health Outcome'){
+	  $query = $this->modelsManager->createQuery("select distinct concept_id,concept_name from Concept a inner join DrugHoiRelationship on hoi = concept_id where upper(concept_name) = :filter: and ".
+						     "concept_class_id = 'Clinical Finding' order by concept_name");
+	}
+	$results = $query->execute(
+				   array('filter'=>strtoupper($concept_id))
+				   );
+	$results_arr = $results->toArray();
+	print_r($results_arr);
+	$concept_id = $results_arr[0]['concept_id'];
+	}*/
+
       $myconcept = Concept::findFirstByConceptId($concept_id);
       
       $this->view->myconcept = $myconcept;
@@ -123,12 +161,18 @@ class IndexController extends ControllerBase
 	  $count = $item->VALUE;
 	}
 	if(isset($item->HOI)){
+	  $str = 'HOI-NAME';
 	  $result_code = $item->HOI;
+	  $result_name = $item->$str;
+
 	}else{
+	  $str = 'DRUG-NAME';
 	  $result_code = $item->DRUG;
+	  $result_name = $item->$str;
+
 	}
 
-	$child_arr[] = array('EVIDENCE'=>$item->EVIDENCE,'RESULT_CODE'=>$result_code,'LINKOUT'=>$item->LINKOUT,'STATISTIC_TYPE'=>$item->STATISTIC_TYPE,'COUNT'=>$count);
+	$child_arr[] = array('EVIDENCE'=>$item->EVIDENCE,'RESULT_CODE'=>$result_code,'LINKOUT'=>$item->LINKOUT,'STATISTIC_TYPE'=>$item->STATISTIC_TYPE,'COUNT'=>$count,'RESULT_NAME'=>$result_name);
 
 	$return_obj[$item->EVIDENCE] = $child_arr;
       }
