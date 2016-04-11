@@ -84,20 +84,6 @@ class IndexController extends ControllerBase
                             'MEDLINE_SemMedDB_Other'=>'SemMed Oth'
 			   );
 
-    /*
-    $evidence_type = array(
-			   'SPL_EU_SPC'=>'Splicer EU',
-			   'SPL_SPLICER_ADR'=>'Splicer',
-			   'MEDLINE_MeSH_ClinTrial'=>'MeSH CT',
-			   'MEDLINE_MeSH_CR'=>'MeSH CR',
-			   'MEDLINE_MeSH_Other'=>'MeSH Oth',
-			   'aers_report_count'=>'FAERS Count',
-			   'aers_report_prr'=>'FAERS PRR',
-			   'MEDLINE_SemMedDB_CR'=>'SemMed CR',
-			   'MEDLINE_SemMedDB_ClinTrial'=>'SemMed CT',
-			   'MEDLINE_SemMedDB_Other'=>'SemMed Oth'
-			   );*/
-
     $this->view->ispost = false;
 
     $this->view->resultTypes = $evidence_type;
@@ -113,9 +99,9 @@ class IndexController extends ControllerBase
       
       //echo("concept_id:".$concept_id);
       //echo("searchtype:".$searchtype);
+      //echo("ben:".is_numeric($concept_id));
 
-      /*
-      if(!is_int($concept_id)){
+      if(!is_numeric($concept_id)){
 	if($searchtype == 'Ingredient'){
 	  $query = $this->modelsManager->createQuery("select distinct concept_id,concept_name from Concept a inner join DrugHoiRelationship on drug = concept_id where upper(concept_name) = :filter: and ".
 						     "concept_class_id = 'Ingredient' order by concept_name");
@@ -131,9 +117,9 @@ class IndexController extends ControllerBase
 				   array('filter'=>strtoupper($concept_id))
 				   );
 	$results_arr = $results->toArray();
-	print_r($results_arr);
+	//print_r($results_arr);
 	$concept_id = $results_arr[0]['concept_id'];
-	}*/
+      }
 
       $myconcept = Concept::findFirstByConceptId($concept_id);
       
