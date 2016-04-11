@@ -1,0 +1,11 @@
+<?php
+
+class LinkoutController extends ControllerBase{
+
+  public function indexAction(){
+
+  }
+
+}
+
+?>
