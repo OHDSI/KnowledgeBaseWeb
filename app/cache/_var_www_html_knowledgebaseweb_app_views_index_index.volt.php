@@ -2,14 +2,27 @@
 
 <div class="default-page">
     <div class="header">
-        <h1 id="main-title" class="container">KnowledgeBaseWeb</h1>
-        <h3 class="container">A web front-end to <A HREF="https://github.com/OHDSI/KnowledgeBase">KnowledgeBase</A></h3>
+        <h1 id="main-title" class="container">Experimental LAERTES Evidence Base Explorer</h1>
+        <h3 class="container">An experimental web front-end to <A HREF="https://github.com/OHDSI/KnowledgeBase">The LAERTES Evidence Base</A></h3>
     </div>
     <div class="main container clearfix" style="width: 60%; min-width: 600px">
 	<div class="Search k-content">
 	<form  method="post" name="SearchForm" id="SearchForm">
-
-
+	  <p>This experimental user interface allows for
+            exploration of data present in the LAERTES evidence
+            base. Please see
+            the <a href="http://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:kb-wg"
+		   target = "_blank">workgroup page on ohdsi.org</a> for
+            more information.
+          </p>
+          <br>
+          <p><b>NOTE:</b> At this time, data from US drug product
+            labeling is only retrievable through the "Clinical Drug"
+            search. This will be fixed in a future release. Also, at
+            this time, there is no "linkout" data available for the
+            FAERS sources.
+          </p>
+	  
 	      <div id="radio" class="form-item">
 		<label class="allcapslabel" for="SearchType">Choose ingredient, product, or event</label>
 		<P id="SearchTypeError" class="error"></P>
@@ -102,7 +115,15 @@
 <P class="error">No evidence for <?php echo $SearchType; ?> <?php echo $myconcept->concept_name; ?></P>
 <?php } ?>
 <?php } ?>
+<p>
+The LAERTES project has been funded in part by the National Library of
+Medicine (1R01LM011838-01) and the National Institute of Aging
+(K01AG044433-01)
+</p>
 </div>
+
+
+
 
 <script type="text/javascript">
 
