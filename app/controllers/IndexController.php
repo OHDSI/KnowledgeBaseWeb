@@ -71,7 +71,7 @@ class IndexController extends ControllerBase
   {
 
     $evidence_type = array(
-			   'SPL_EU_SPC'=>'Splicer EU',
+			   'SPL_EU_SPC'=>'EU SPC',
 			   'SPL_SPLICER_ADR'=>'Splicer',
 			   'MEDLINE_MeSH_ClinTrial'=>'MeSH CT',
 			   'MEDLINE_MeSH_CR'=>'MeSH CR',
