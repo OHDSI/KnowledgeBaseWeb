@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<header>
+		<span class="hidden"></span>
+		<div class="logo">LAERTES</div>
+		<div class="sub-search-box hidden">
+				<ul>
+				<li class="sub-unselected">Drug</li>
+				<li class="sub-unselected">HOI</li>
+				</ul>
+				<input type="text">
+				<input id="sub-submit" type="button" value="Search">
+			</div>
+	</header>
+	<div class="mainbody">
+		<div class="shadow-wait hidden">
+			<img src="images/wait.gif" alt="">
+		</div>
+		<div class="search-box">
+			<ul>
+				<li class="unselected">Drug</li>
+				<li class="unselected">HOI</li>
+			</ul>
+			<input type="text">
+			<input id="submit" type="button" value="Search">
+			<div class="search-description">
+			<h2>Note:</h2>
+			<p>1.Pick one of the option to search(Drug or HOI)</p>
+			<p>2.For the drug, you can input drug name or durg id(eg. 12345 or Penicillins)</p>
+			<p>3.For the HOI, you can input HOI id or HOI name(eg. 32445 or headache)</p>
+			<p>4.the search is case-sensitive free.</p>
+		</div>
+		</div><!-- search-box end -->
+		<div class="content hidden">
+			<div id="summary_additional_filter" class="filter_option hidden">
+					<div class="additional_filter_close"></div>
+					<h2>Additional Filters</h2>
+					<div class="additional_filter">
+						<input type="checkbox" value="type"><label for="">Article Type</label>
+					</div>
+					<div class="additional_filter">
+						<input type="checkbox" value="species"><label for="">Species</label>
+					</div>
+					<div class="additional_filter">
+						<input type="checkbox" value="subject"><label for="">Subject</label>
+					</div>
+					<div class="additional_filter">
+						<input type="checkbox" value="ages"><label for="">Ages</label>
+					</div>
+					<div class="change_filter">
+						<input id="change_filter" type="button" value="Show">
+					</div>
+
+			</div><!-- filter_option end -->
+			<nav>
+				<ul>
+					<li class="nav-summary active"></li>
+					<li class="nav-other"></li>
+					<li class="nav-help"></li>
+				</ul>
+			</nav>
+			<div class="filter">
+				<section class="summary">
+					<h1>Summary</h1><span>Clear All</span>
+					<div class="sub-filter">
+						<h2>Filter By Source</h2><span>Clear</span>
+						<ul>
+							<li>FAERS count</li>
+							<li>PAEHS PRR</li>
+							<li>US Product label</li>
+							<li>EU Product label</li>
+							<li>PubMed CF</li>
+							<li>PubMed CK</li>
+							<li>PubMed Other</li>
+							<li>SemMed CF</li>
+							<li>SemMed CK</li>
+							<li>SemMed Other</li>
+							<li>CTD</li>
+							<li>Sponsers report</li>
+						</ul>
+					</div>
+					<div class="sub-filter">
+						<h2>Filter By Level</h2><span>Clear</span>
+						<ul>
+							<li>Ingredient Level</li>
+							<li>Clinical drug</li>
+							<li>Branded drug</li>
+						</ul>
+					</div>
+					<div class="sub-filter">
+						<h2>Filter By Question</h2><span>Clear</span>
+						<ul>
+							<li>Question1</li>
+							<li>Question2</li>
+							<li>Question3</li>
+						</ul>
+					</div>
+					<div class="sub-filter">
+						<h2>Publication Date</h2><span>Clear</span>
+						<ul>
+							<li>5 years</li>
+							<li>10 years</li>
+						</ul>
+					</div>
+					<div class="addtion"></div>
+						<p>+ Additional filters</p>
+				</section>
+				<section class="detail hidden">
+					<h1>Details</h1> <span>Clear All</span>
+					<div class="sub-filter">
+						<h2>Filter By Source</h2> <span>Clear</span>
+						<ul>
+							<li>FAERS count</li>
+							<li>PAEHS PRR</li>
+							<li>US Product label</li>
+							<li>EU Product label</li>
+							<li>PubMed CF</li>
+							<li>PubMed CK</li>
+							<li>PubMed Other</li>
+							<li>SemMed CF</li>
+							<li>SemMed CK</li>
+							<li>SemMed Other</li>
+							<li>CTD</li>
+							<li>Sponsers report</li>
+						</ul>
+					</div>
+					<div class="sub-filter">
+						<h2>Filter By Level</h2><span>Clear</span>
+						<ul>
+							<li>Ingredient Level</li>
+							<li>Clinical drug</li>
+							<li>Branded drug</li>
+						</ul>
+					</div>
+					<div class="sub-filter">
+						<h2>Publication Date</h2><span>Clear</span>
+						<ul>
+							<li>5 years</li>
+							<li>10 years</li>
+						</ul>
+					</div>
+					<div class="addtion"></div>
+					<p>+ Additional filters</p>
+				</section>
+				<section class="Help hidden">
+				<h1>LAERTES Help</h1>
+						<div class="help-option">
+							<ul>
+
+							<li>How to start to search</li>
+							<li>Main function of system</li>
+							<li>How to directly link to article</li>
+							<li>Filter function</li>
+							<li>How add more filter options</li>
+						
+							
+						</ul>
+						</div>		
+				
+				</section>
+			</div><!-- filter end -->
+			<article class="summary-table">
+				<div class="table-header">
+						<p>Key word:"Diabetes"</p>
+						<div class="table-sort">
+							<ul>
+								<li class="subunselected">Sort by Date</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="table-body">
+						<table>
+							<thead>
+								<tr>
+									<th>Article</th>
+									<th>Publish Date</th>
+									<th>Author</th>
+									<th>Link</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+				</div>
+				<div class="table-operate">
+					<label for="pagenum">Showing</label>
+					<select name="pagenum" id="pagenme">
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+					<span class="currentpage">1 </span> of <span class="totalpage"> 2</span>
+					<input class="pre" type="button" value="&lt">
+					<input class="next" type="button" value="&gt">
+				</div>
+			</article><!-- summary table end -->
+			<article class="details-table hidden">
+				<div class="table">
+				<div class="table-header">
+						<p>Key word:"Diabetes"</p>
+						<div class="table-sort">
+							<ul>
+								<li class="subunselected">Sort by Date</li>
+							</ul>
+						</div>
+					</div>					
+					<div class="table-body">
+						<table>
+							<thead>
+								<tr>
+									<th>Evidence(ID)</th>
+									<th>Source</th>
+									<th>Quantity</th>
+									<th>Show Article</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+				</div>
+
+				</div>
+				<div class="table-operate">
+					<label for="pagenum">Showing</label>
+					<select name="pagenum" id="pagenme">
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+					<span class="currentpage">1 </span> of <span class="totalpage"> 2</span>
+					<input class="pre" type="button" value="&lt">
+					<input class="next" type="button" value="&gt">
+				</div>
+				<div class="sub-table">
+					<div class="table-header">
+						<div class="goback"></div><p>Go to previous table</p>
+						<div class="table-sort">
+							<input type="checkbox"><label for="">Sort By Date</label>
+						</div>
+					</div>
+					<div class="table-body">
+						<table>
+							<thead>
+								<tr>
+									<th>Article</th>
+									<th>Publish Date</th>
+									<th>Author</th>
+									<th>Link</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>content1</td>
+									<td>content1</td>
+									<td>content1</td>
+									<td><p></p></td>
+								</tr>
+								<tr>
+									<td>content2</td>
+									<td>content2</td>
+									<td>content2</td>
+									<td><p></p></td>
+								</tr>
+								<tr>
+									<td>content3</td>
+									<td>content3</td>
+									<td>content3</td>
+									<td><p></p></td>
+								</tr>
+								<tr>
+									<td>content4</td>
+									<td>content4</td>
+									<td>content4</td>
+									<td><p></p></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</article><!-- detals table end -->
+			<article class="help hidden">
+				<div class="help-body">
+					<img src="" alt="">
+				</div>
+			</article>
+		</div><!-- content end -->
+	</div><!-- mainbody end -->
+	<script src="js/data.js"></script>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>
